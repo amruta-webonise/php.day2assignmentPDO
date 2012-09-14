@@ -14,6 +14,7 @@ try
 	FetchAssociativeArray($pdoObject,$sql);
 	FetchNumArray($pdoObject,$sql);
 	FetchBothArray($pdoObject,$sql);
+	FetchObject($pdoObject,$sql);
 
 	//connection close
     	$pdoObject = null;
@@ -46,7 +47,7 @@ function FetchArray($pdoObject,$sql)
 	echo '<br/>';
 	echo '<br/>';
 	echo '<br/>';
-	echo 'Array fetching<br/>';
+	echo 'Array fetching=><br/>';
 	foreach ($pdoObject->query($sql) as $row)
         {
         	print $row['question'] .' => '. $row['answer'] . '<br />';
@@ -59,7 +60,7 @@ function FetchArray($pdoObject,$sql)
 
 function FetchAssociativeArray($pdoObject,$sql)
 {
-	echo 'Associative fetching<br/>';
+	echo 'Associative fetching=><br/>';
 	$statement = $pdoObject->query($sql);
 
 	$AssociativeArr = $statement->fetch(PDO::FETCH_ASSOC);
@@ -69,7 +70,7 @@ function FetchAssociativeArray($pdoObject,$sql)
 
 function FetchNumArray($pdoObject,$sql)
 {
-	echo 'FETCH_NUM<br/>';
+	echo 'FETCH_NUM=><br/>';
 	$statement = $pdoObject->query($sql);
 	$NumArr = $statement->fetch(PDO::FETCH_NUM);
 
@@ -79,13 +80,24 @@ function FetchNumArray($pdoObject,$sql)
 
 function FetchBothArray($pdoObject,$sql)
 {
-	echo 'FETCH_BOTH<br/>';
+	echo 'FETCH_BOTH=><br/>';
 	$statement = $pdoObject->query($sql);
 	$BothArr = $statement->fetch(PDO::FETCH_BOTH);
 	Display($BothArr);
 }
 
-
+function FetchObject($pdoObject,$sql)
+{  
+	$statement = $pdoObject->query($sql);
+	$AssessmentObject = $statement->fetch(PDO::FETCH_OBJ);
+	echo 'FETCH_object=><br/>';
+	echo $AssessmentObject->question_no;
+	echo '<br/>';
+	echo $AssessmentObject->question;
+	echo '<br/>';
+	echo $AssessmentObject->answer;
+	echo '<br/>';
+}
 
 function Display($Array)
 {
@@ -98,5 +110,7 @@ function Display($Array)
 	echo '<br/>';
 
 }
+
+
 
 ?>
