@@ -178,6 +178,40 @@ class Pdo_test
 		echo '<br/>';
 	}
 
+
+	function Transaction($pdoObject)
+	{
+	 	
+		try
+		{
+		$pdoObject->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    		$pdoObject->beginTransaction();
+		echo 'inside transactions.. <br/>';
+   	    	$pdoObject->exec("INSERT INTO assessment VALUES ('7','what is your name','amruta')");
+    		$pdoObject->exec("INSERT INTO assessment VALUES ('8','where are you from','pune')");
+    		$pdoObject->exec("INSERT INTO assessment VALUES ('6','what is your surname','tajane')");
+
+   		 $pdoObject->commit();
+
+   		 echo 'All values inserted<br />';
+		}
+		catch(PDOException $e)
+   		 {
+   
+    			$pdoObject->rollback();
+
+   			echo $e->getMessage();
+   		 }	
+	}
+
+	function GetLastInsertedNum($pdoObject)
+	{
+		$pdoObject->exec("INSERT INTO xyz(name) VALUES ('aa')");
+		$LastId = $pdoObject->lastInsertId();
+		echo "last inserted id is $LastId";
+	}
+
 }
 
 class Assessment
@@ -210,7 +244,8 @@ class Assessment
 	$pdo_Oject->FetchClass($pdoObject,$sql);
 	$pdo_Oject->ErrorHandling($pdoObject);
 	$pdo_Oject->PrepareStatement($pdoObject);
-
+	//$pdo_Oject->Transaction($pdoObject);
+	$pdo_Oject->GetLastInsertedNum($pdoObject);
 	//connection close
     	$pdoObject = null;
 
