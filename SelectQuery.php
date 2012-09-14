@@ -13,6 +13,7 @@ try
 	FetchArray($pdoObject,$sql);
 	FetchAssociativeArray($pdoObject,$sql);
 	FetchNumArray($pdoObject,$sql);
+	FetchBothArray($pdoObject,$sql);
 
 	//connection close
     	$pdoObject = null;
@@ -60,16 +61,42 @@ function FetchAssociativeArray($pdoObject,$sql)
 {
 	echo 'Associative fetching<br/>';
 	$statement = $pdoObject->query($sql);
+
 	$AssociativeArr = $statement->fetch(PDO::FETCH_ASSOC);
 
-	foreach($AssociativeArr as $index=>$value)
+	Display($AssociativeArr);
+}
+
+function FetchNumArray($pdoObject,$sql)
+{
+	echo 'FETCH_NUM<br/>';
+	$statement = $pdoObject->query($sql);
+	$NumArr = $statement->fetch(PDO::FETCH_NUM);
+
+	Display($NumArr);
+
+}
+
+function FetchBothArray($pdoObject,$sql)
+{
+	echo 'FETCH_BOTH<br/>';
+	$statement = $pdoObject->query($sql);
+	$BothArr = $statement->fetch(PDO::FETCH_BOTH);
+	Display($BothArr);
+}
+
+
+
+function Display($Array)
+{
+	foreach($Array as $index=>$value)
 	{
 		echo $index.' => '.$value.'<br />';
 	}
 	echo '<br/>';
 	echo '<br/>';
 	echo '<br/>';
-}
 
+}
 
 ?>
