@@ -10,20 +10,22 @@ try
 {
 	$pdoObject = ConnectToDatabase();
 	$sql = "SELECT * FROM assessment";
+
 	FetchArray($pdoObject,$sql);
 	FetchAssociativeArray($pdoObject,$sql);
 	FetchNumArray($pdoObject,$sql);
 	FetchBothArray($pdoObject,$sql);
 	FetchObject($pdoObject,$sql);
 	FetchClass($pdoObject,$sql);
+	ErrorHandling($pdoObject);
 
 	//connection close
     	$pdoObject = null;
 
 }
-catch(PDOException $e)
+catch(PDOException $Exception_name)
 {
-	echo $e->getMessage();
+	echo $Exception_name->getMessage();
 }
 
 
@@ -142,9 +144,25 @@ function FetchClass($pdoObject,$sql)
         echo $Assessment->UpperCase();
 	echo '<br/>';
     } 
+	echo '<br/>';
+	echo '<br/>';
+	echo '<br/>';
 }
 
+function ErrorHandling($pdoObject)
+{
 
+	$pdoObject->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$ErrSQL = "SELECT hostname FROM assessment";
+        foreach ($pdoObject->query($ErrSQL) as $row)
+        {
+        	print $row['question'] .' - '. $row['answer'] . '<br />';
+        }
+	echo '<br/>';
+	echo '<br/>';
+	echo '<br/>';
+
+}
 
 
 ?>
