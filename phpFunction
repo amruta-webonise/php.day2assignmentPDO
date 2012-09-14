@@ -1,0 +1,30 @@
+
+
+__construct => Constructor of class. Called when object of class is created.
+
+$pdoObject = new PDO("mysql:host=$hostname;dbname=test", $User, $Password) => helps connect to database.
+$hostname is 'localhost', and username password show be passed.
+
+
+fetch(PDO::FETCH_ASSOC) => helps fetch table data as an associated array. the key is column name and value is the row data.
+
+fetch(PDO::FETCH_NUM => helps fetch table data as an associated array. the key is column number and value is the row data.
+
+fetch(PDO::FETCH_BOTH) => helps fetch table data as an associated array. the key is column name and value is the row data as well as key is column number.
+
+fetch(PDO::FETCH_OBJ) => helps fetch table data as an object.
+
+
+$pdoObject->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION) => helps display error functions and exceptions.
+
+$statement->fetchALL(PDO::FETCH_CLASS, 'Assessment') => helps fetch table data as a class and you can call ne functions writted inside the class.
+
+$PrepareStatement = $pdoObject->prepare("SELECT * FROM assessment WHERE question_no = :question_no")=> helps create a prepared statement and pass parameters to the where clause.
+
+$pdoObject->beginTransaction() => used in trasactions. anythin written between beginTransaction() and commit or rollback is called as trasaction.
+
+$pdoObject->rollback() => used to roll back changes in case any exception occurs.
+
+$pdoObject->commit() => used to commit to changes.
+
+$pdoObject->lastInsertId() => used to check the last inserted id in the table.

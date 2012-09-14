@@ -1,0 +1,30 @@
+
+
+__construct => Constructor of class. Called when object of class is created.
+
+$pdoObject = new PDO("mysql:host=$hostname;dbname=test", $User, $Password) => helps connect to database.
+$hostname is 'localhost', and username password show be passed.
+
+
+fetch(PDO::FETCH_ASSOC) => helps fetch table data as an associated array. the key is column name and value is the row data.
+
+fetch(PDO::FETCH_NUM => helps fetch table data as an associated array. the key is column number and value is the row data.
+
+fetch(PDO::FETCH_BOTH) => helps fetch table data as an associated array. the key is column name and value is the row data as well as key is column number.
+
+fetch(PDO::FETCH_OBJ) => helps fetch table data as an object.
+
+
+$pdoObject->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$statement->fetchALL(PDO::FETCH_CLASS, 'Assessment');
+
+$PrepareStatement = $pdoObject->prepare("SELECT * FROM assessment WHERE question_no = :question_no");
+
+$pdoObject->beginTransaction();
+
+$pdoObject->rollback();
+
+$pdoObject->commit();
+
+$pdoObject->lastInsertId()
