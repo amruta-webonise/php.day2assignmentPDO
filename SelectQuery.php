@@ -15,6 +15,7 @@ try
 	FetchNumArray($pdoObject,$sql);
 	FetchBothArray($pdoObject,$sql);
 	FetchObject($pdoObject,$sql);
+	FetchClass($pdoObject,$sql);
 
 	//connection close
     	$pdoObject = null;
@@ -97,6 +98,8 @@ function FetchObject($pdoObject,$sql)
 	echo '<br/>';
 	echo $AssessmentObject->answer;
 	echo '<br/>';
+	echo '<br/>';
+	echo '<br/>';
 }
 
 function Display($Array)
@@ -110,6 +113,37 @@ function Display($Array)
 	echo '<br/>';
 
 }
+
+class Assessment
+{
+
+	public $question_no;
+
+	public $question;
+
+	public $answer;
+
+	public function UpperCase()
+	{
+ 		return strtoupper($this->question);
+	}
+
+}
+
+function FetchClass($pdoObject,$sql)
+{  
+
+    $statement = $pdoObject->query($sql);
+
+    $AssessmentObj = $statement->fetchALL(PDO::FETCH_CLASS, 'Assessment');
+	echo 'FETCH_class=><br/>';
+    foreach($AssessmentObj as $Assessment)
+    {
+        echo $Assessment->UpperCase();
+	echo '<br/>';
+    } 
+}
+
 
 
 
